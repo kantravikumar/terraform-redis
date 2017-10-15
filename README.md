@@ -6,18 +6,24 @@ Terraform module used to create AWS ElastiCache Redis clusters
 
 | Name | Description | Type | Default | Required |
 |------|-------------|:----:|:-----:|:-----:|
-| cache_cluster_count |  | string | `1` | no |
-| maintenance_window |  | string | `mon:01:00-mon:07:00` | no |
-| node_type |  | string | `cache.m4.large` | no |
-| parameter_group |  | string | `default.redis3.2.cluster.on` | no |
+| allowed_sgs |  | list | - | yes |
+| automatic_failover_enabled |  | string | `false` | no |
+| availability_zones |  | list | - | yes |
+| budget |  | string | - | yes |
+| engine_version |  | string | `3.2.4` | no |
+| environment |  | string | - | yes |
+| node_type |  | string | - | yes |
+| num_cache_nodes |  | string | - | yes |
+| parameter_group_name |  | string | `default.redis3.2` | no |
 | port |  | string | `6379` | no |
-| tag_budget |  | string | - | yes |
-| tag_environment |  | string | - | yes |
-| version |  | string | `3.2.4` | no |
+| project |  | string | - | yes |
+| subnets |  | list | - | yes |
+| vpc_id |  | string | - | yes |
 
 ## Outputs
 
 | Name | Description |
 |------|-------------|
-| address | DNS name of the cluster, without the port appended |
-| port | Redis port number |
+| redis_endpoint |  |
+| redis_port |  |
+| redis_sg |  |

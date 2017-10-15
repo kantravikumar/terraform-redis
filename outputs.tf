@@ -1,9 +1,11 @@
-output "address" {
-  description = "DNS name of the cluster, without the port appended"
-  value       = "${aws_elasticache_cluster.main.cluster_address}"
+output "redis_sg" {
+  value = "${aws_security_group.sg_redis.id}"
 }
 
-output "port" {
-  description = "Redis port number"
-  value       = "${var.port}"
+output "redis_endpoint" {
+  value = "${aws_elasticache_replication_group.redis.primary_endpoint_address}"
+}
+
+output "redis_port" {
+  value = "${var.port}"
 }

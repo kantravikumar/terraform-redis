@@ -1,27 +1,39 @@
-variable "version" {
+variable "environment" {}
+
+variable "project" {}
+
+variable "node_type" {}
+
+variable "num_cache_nodes" {}
+
+variable "subnets" {
+  type = "list"
+}
+
+variable "allowed_sgs" {
+  type = "list"
+}
+
+variable "vpc_id" {}
+
+variable "parameter_group_name" {
+  default = "default.redis3.2"
+}
+
+variable "engine_version" {
   default = "3.2.4"
 }
 
 variable "port" {
-  default = 6379
+  default = "6379"
 }
 
-variable "parameter_group" {
-  default = "default.redis3.2.cluster.on"
+variable "automatic_failover_enabled" {
+  default = false
 }
 
-variable "node_type" {
-  default = "cache.m4.large"
+variable "availability_zones" {
+  type = "list"
 }
 
-variable "cache_cluster_count" {
-  default = 1
-}
-
-variable "maintenance_window" {
-  default = "mon:01:00-mon:07:00"
-}
-
-variable "tag_budget" {}
-
-variable "tag_environment" {}
+variable "budget" {}
