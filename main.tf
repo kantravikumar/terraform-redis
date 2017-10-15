@@ -1,5 +1,5 @@
 resource "aws_elasticache_replication_group" "redis" {
-  replication_group_id          = "${lower(var.project)}-${lower(var.environment)}"
+  replication_group_id          = "${lower(var.budget)}-${substr(var.environment, 0, 3)}"
   replication_group_description = "Redis cache cluster"
   number_cache_clusters         = "${var.num_cache_nodes}"
   node_type                     = "${var.node_type}"
