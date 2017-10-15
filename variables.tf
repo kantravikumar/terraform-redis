@@ -10,10 +10,6 @@ variable "subnets" {
   type = "list"
 }
 
-variable "allowed_sgs" {
-  type = "list"
-}
-
 variable "vpc_id" {}
 
 variable "parameter_group_name" {

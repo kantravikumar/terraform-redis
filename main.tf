@@ -7,7 +7,7 @@ resource "aws_elasticache_replication_group" "redis" {
   engine_version                = "${var.engine_version}"
   port                          = "${var.port}"
   parameter_group_name          = "${var.parameter_group_name}"
-  security_group_ids            = ["${aws_security_group.sg_redis.id}"]
+  security_group_ids            = ["${aws_security_group.main.id}"]
   subnet_group_name             = "${aws_elasticache_subnet_group.elasticache.id}"
   availability_zones            = ["${var.availability_zones}"]
   automatic_failover_enabled    = "${var.automatic_failover_enabled}"
@@ -24,22 +24,19 @@ resource "aws_elasticache_subnet_group" "elasticache" {
   subnet_ids = ["${var.subnets}"]
 }
 
-resource "aws_security_group" "sg_redis" {
+resource "aws_security_group" "main" {
   vpc_id = "${var.vpc_id}"
+
+  ingress {
+    from_port = 6379
+    to_port   = 6379
+    self      = true
+  }
 
   tags {
     Name        = "${var.project}-${var.environment}"
     Environment = "${var.environment}"
     Project     = "${var.project}"
+    VPC         = "${var.vpc_id}"
   }
-}
-
-resource "aws_security_group_rule" "sg_app_to_redis" {
-  count                    = "${length(var.allowed_sgs)}"
-  type                     = "ingress"
-  security_group_id        = "${aws_security_group.sg_redis.id}"
-  from_port                = "${var.port}"
-  to_port                  = "${var.port}"
-  protocol                 = "tcp"
-  source_security_group_id = "${var.allowed_sgs[count.index]}"
 }
